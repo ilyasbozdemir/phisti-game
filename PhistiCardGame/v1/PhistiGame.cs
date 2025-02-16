@@ -1,34 +1,42 @@
 ﻿namespace PhistiCardGame.v1;
 
-public class PistiGame
+public class PhistiGame
 {
     public static List<PhistiCard> Deck = new List<PhistiCard>(); // Kart destesi
     public static List<PhistiCard> Floor = new List<PhistiCard>(); // Masadaki kartlar
+    public static List<GameTable> GameTables = new List<GameTable>();
     public static List<GamePlayer> Players = new List<GamePlayer>();
+
     public static GameMode CurrentGameMode { get; set; }
     public static int DealerIndex { get; set; } = 0;
     public static int CurrentRound { get; set; } = 1;
 
     private static Random random = new Random();
 
-
-
-    public static void StartGame(GameMode gameMode)
+    public static void StartGame(GameMode gameMode, string tableName)
     {
         CurrentGameMode = gameMode;
+
+        var newTable = CreateGameTable(tableName);
+
+
         CreateShuffleDeck();
-        CreatePlayers();
-        SplitAndCombineDeck();
+        CreatePlayers(newTable.Id);  
+       SplitAndCombineDeck();
         DealCards();
+    }
+
+    public static GameTable CreateGameTable(string tableName)
+    {
+        var newTable = new GameTable { TableName = tableName };
+        GameTables.Add(newTable);
+        return newTable;
     }
 
     public static void CreateDeck()
     {
         string[] suits = { "Maca", "Kupa", "Karo", "Sinek" };
-        string[] values = 
-        { 
-            "A", "2", "3", "4", "5", "6", "7", "8", "9", "J", "Q", "K" 
-        };
+        string[] values = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "J", "Q", "K" };
 
         // Her suit ve her value için bir kart oluştur ve desteye ekle
         foreach (var suit in suits)
@@ -49,22 +57,37 @@ public class PistiGame
         ShuffleDeck();
     }
 
-    public static void CreatePlayers()
+    public static void CreatePlayers(Guid tableID)
     {
         Players.Clear(); // Önceki oyuncuları temizle
-        if (CurrentGameMode == GameMode.TwoPlayer)
+        var selectedTable = GameTables.FirstOrDefault(table => table.Id == tableID);
+
+        if (selectedTable != null)
         {
-            Players.Add(new GamePlayer("Player", false, 1)); // Gerçek oyuncu
-            Players.Add(new GamePlayer("Computer", true, 2)); // Bilgisayar
-        }
-        else if (CurrentGameMode == GameMode.FourPlayer)
-        {
-            Players.Add(new GamePlayer("Player", false, 1)); // Gerçek oyuncu
-            Players.Add(new GamePlayer("Player 2", false, 2)); // Gerçek oyuncu
-            Players.Add(new GamePlayer("Computer 1", true, 3)); // Bilgisayar
-            Players.Add(new GamePlayer("Computer 2", true, 4)); // Bilgisayar
+            if (CurrentGameMode == GameMode.TwoPlayer)
+            {
+                Players.Add(new GamePlayer("Player", false, 1)); // Gerçek oyuncu
+                Players.Add(new GamePlayer("Computer", true, 2)); // Bilgisayar
+
+                selectedTable.TeamOne.Add(Players[0]); // Player
+                selectedTable.TeamOne.Add(Players[1]); // Computer 1
+            }
+            else if (CurrentGameMode == GameMode.FourPlayer)
+            {
+                Players.Add(new GamePlayer("Player", false, 1)); // Gerçek oyuncu
+                Players.Add(new GamePlayer("Computer 1", true, 2)); // Bilgisayar
+                Players.Add(new GamePlayer("Computer 2", true, 3)); // Bilgisayar
+                Players.Add(new GamePlayer("Computer 3", true, 4)); // Bilgisayar
+
+                selectedTable.TeamOne.Add(Players[0]); // Player
+                selectedTable.TeamOne.Add(Players[1]); // Computer 1
+
+                selectedTable.TeamTwo.Add(Players[2]); // Computer 2
+                selectedTable.TeamTwo.Add(Players[3]); // Computer 3
+            }
         }
     }
+
 
     public static void ShuffleDeck()
     {
@@ -78,7 +101,6 @@ public class PistiGame
             Deck[n] = value;
         }
     }
-
 
     public static List<PhistiCard> SplitAndCombineDeck()
     {
@@ -98,17 +120,10 @@ public class PistiGame
         Floor.AddRange(openedCards);
         var remainingDeck = combinedDeck.Skip(4).ToList();
 
-        return remainingDeck; 
+        return remainingDeck;
     }
 
-    public static void DealCards()
-    {
-        int cardsPerPlayer = 4;
-        for (int i = 0; i < Players.Count; i++)
-        {
-            Players[i].Hand = Deck.Skip(i * cardsPerPlayer).Take(cardsPerPlayer).ToList();
-        }
-    }
+    public static void DealCards() { }
 
     public static void AssignDealer()
     {

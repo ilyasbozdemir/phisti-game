@@ -7,6 +7,6 @@ public class PhistiCard : PlayCard
     public PhistiCard(string suit, string value)
         : base(suit, value)
     {
-        PointValue = PistiGameConfig.GetCardPointValue(value, suit);
+        PointValue = PhistiGameConfig.GetCardPointValue(value, suit);
     }
 }

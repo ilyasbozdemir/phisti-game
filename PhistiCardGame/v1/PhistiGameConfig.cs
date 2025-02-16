@@ -1,6 +1,6 @@
 ﻿namespace PhistiCardGame.v1;
 
-public class PistiGameConfig
+public class PhistiGameConfig
 {
     // Kart puanları için Dictionary
     public static Dictionary<(string value, string suit), int> CardPointValues { get; set; }
@@ -17,7 +17,7 @@ public class PistiGameConfig
     // Sabit kart fazlası puanı
     public const int ExtraCardPoint = 3; // Kart fazlası puanı 3 olarak sabitlendi.
 
-    static PistiGameConfig() // Static Constructor
+    static PhistiGameConfig() // Static Constructor
     {
         // Kart puanlarını başlat
         CardPointValues = new Dictionary<(string, string), int>
