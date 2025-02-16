@@ -8,17 +8,18 @@ on:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4  # Proje dosyasını GitHub reposundan çekmek
+    - uses: actions/checkout@v4
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x  # .NET sürümünü ayarlamak
+        dotnet-version: 8.0.x
     - name: Restore dependencies
-      run: dotnet restore  # Bağımlılıkları geri yüklemek
+      run: dotnet restore ./PhistiCardGame.sln  # Çözüm dosyasının yolunu burada belirtin
     - name: Build
-      run: dotnet build --no-restore  # Projeyi derlemek
+      run: dotnet build ./PhistiCardGame.sln --no-restore  # Çözüm dosyasının yolunu burada belirtin
     - name: Test
-      run: dotnet test --no-build --verbosity normal  # Testleri çalıştırmak
+      run: dotnet test ./PhistiCardGame.sln --no-build --verbosity normal  # Çözüm dosyasının yolunu burada belirtin
