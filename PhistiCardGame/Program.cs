@@ -9,7 +9,7 @@ public class Program
         Console.OutputEncoding = System.Text.Encoding.UTF8;
 
         // Deste oluştur ve karıştır. Masa adı ile başlatılacak
-        PhistiGame.StartGame(GameMode.FourPlayer, "Game Table 1");
+        PhistiGame.StartGame(GameMode.FourPlayer, "Oyun Masası 1");
 
         // Oluşturulan desteyi yazdır
         Console.WriteLine("Deste oluşturuldu ve karıştırıldı:");
