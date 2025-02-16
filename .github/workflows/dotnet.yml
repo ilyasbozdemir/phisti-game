@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -18,8 +17,8 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Restore dependencies
-      run: dotnet restore ./PhistiCardGame.sln  # Çözüm dosyasının yolunu burada belirtin
+      run: dotnet restore ./PhistiCardGame.sln
     - name: Build
-      run: dotnet build ./PhistiCardGame.sln --no-restore  # Çözüm dosyasının yolunu burada belirtin
+      run: dotnet build ./PhistiCardGame.sln --no-restore
     - name: Test
-      run: dotnet test ./PhistiCardGame.sln --no-build --verbosity normal  # Çözüm dosyasının yolunu burada belirtin
+      run: dotnet test ./PhistiCardGame.sln --no-build --verbosity normal
