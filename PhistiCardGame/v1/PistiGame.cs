@@ -18,13 +18,17 @@ public class PistiGame
         CurrentGameMode = gameMode;
         CreateShuffleDeck();
         CreatePlayers();
+        SplitAndCombineDeck();
         DealCards();
     }
 
     public static void CreateDeck()
     {
         string[] suits = { "Maca", "Kupa", "Karo", "Sinek" };
-        string[] values = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "J", "Q", "K" };
+        string[] values = 
+        { 
+            "A", "2", "3", "4", "5", "6", "7", "8", "9", "J", "Q", "K" 
+        };
 
         // Her suit ve her value için bir kart oluştur ve desteye ekle
         foreach (var suit in suits)
@@ -73,6 +77,28 @@ public class PistiGame
             Deck[k] = Deck[n];
             Deck[n] = value;
         }
+    }
+
+
+    public static List<PhistiCard> SplitAndCombineDeck()
+    {
+        // su anlık ikiye ayıtmak için oldu bu
+
+
+        // Deck'i ikiye böl
+        int mid = Deck.Count / 2;
+        var firstHalf = Deck.Take(mid).ToList();
+        var secondHalf = Deck.Skip(mid).ToList();
+
+        // İkinci parçayı ilk parçanın önüne yerleştir
+        var combinedDeck = secondHalf.Concat(firstHalf).ToList();
+
+        // 4 kartı yere aç ve yeni deste olarak döndür
+        var openedCards = combinedDeck.Take(4).ToList();
+        Floor.AddRange(openedCards);
+        var remainingDeck = combinedDeck.Skip(4).ToList();
+
+        return remainingDeck; 
     }
 
     public static void DealCards()
