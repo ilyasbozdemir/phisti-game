@@ -6,6 +6,8 @@ Phisti is a traditional Turkish card game that can be played with 2 to 4 players
 
 Phisti is a fun and strategic card game where players try to take cards from the table by matching cards of the same rank. The game can be played by two or more players. In this version, the game is implemented with a focus on simplicity, and it's designed to be played between a human and a computer opponent.
 
+The core logic of the game was developed to enhance coding skills and provide a base for building a more complete game experience. This project serves as a demonstration of game programming fundamentals in C#.
+
 ## Features
 
 - **Card Dealing**: Cards are shuffled and dealt to the players and the table.
