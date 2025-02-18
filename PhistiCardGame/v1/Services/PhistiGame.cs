@@ -1,6 +1,6 @@
 ﻿using PhistiCardGame.v1.Models;
 
-namespace PhistiCardGame.v1;
+namespace PhistiCardGame.v1.Services;
 
 public class PhistiGame
 {
@@ -32,7 +32,7 @@ public class PhistiGame
     public static GameTable CreateGameTable(string tableName)
     {
         tableNo++;
-        var newTable = new GameTable { TableName = tableName,No = tableNo };
+        var newTable = new GameTable { TableName = tableName, No = tableNo };
         newTable.No = tableNo;
 
         return newTable;
