@@ -13,23 +13,26 @@ public class PhistiGame
 
     private static Random random = new Random();
 
-    public static void StartGame(GameMode gameMode, string tableName)
+    public static void StartGame(GameMode gameMode, GameTable gameTable)
     {
         CurrentGameMode = gameMode;
 
-        var newTable = CreateGameTable(tableName);
-
+        GameTables.Add(gameTable);
 
         CreateShuffleDeck();
-        CreatePlayers(newTable.Id);  
-       SplitAndCombineDeck();
+        CreatePlayers(gameTable.Id);
+        SplitAndCombineDeck();
         DealCards();
     }
 
+    static int tableNo = 0;
+
     public static GameTable CreateGameTable(string tableName)
     {
-        var newTable = new GameTable { TableName = tableName };
-        GameTables.Add(newTable);
+        tableNo++;
+        var newTable = new GameTable { TableName = tableName,No = tableNo };
+        newTable.No = tableNo;
+
         return newTable;
     }
 
@@ -87,7 +90,6 @@ public class PhistiGame
             }
         }
     }
-
 
     public static void ShuffleDeck()
     {

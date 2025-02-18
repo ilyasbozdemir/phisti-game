@@ -3,6 +3,7 @@
 public class GameTable
 {
     public Guid Id { get; set; } = Guid.NewGuid();
+    public int No { get; set; }
 
     public string TableName { get; set; } = "Table 1"; // Masa adı
     public List<GamePlayer> TeamOne { get; set; } = new List<GamePlayer>();
