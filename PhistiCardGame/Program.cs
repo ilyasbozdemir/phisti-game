@@ -1,4 +1,4 @@
-﻿using PhistiCardGame.v1;
+﻿using PhistiCardGame.v1.Services;
 
 namespace PhistiCardGame;
 

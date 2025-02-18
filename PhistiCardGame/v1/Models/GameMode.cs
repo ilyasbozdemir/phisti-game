@@ -1,4 +1,4 @@
-﻿namespace PhistiCardGame.v1;
+﻿namespace PhistiCardGame.v1.Models;
 
 public enum GameMode
 {

@@ -1,4 +1,6 @@
-﻿namespace PhistiCardGame.v1;
+﻿using PhistiCardGame.v1.Models;
+
+namespace PhistiCardGame.v1;
 
 public class PhistiGame
 {
